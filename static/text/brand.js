@@ -12,7 +12,7 @@ const brand = {
     url: 'weblbdesigns.com',
     img: '/images/profile-logo.png',
     avatar: imgAPI.profile[1],
-    cover: '/images/profile/barker-bigsur2.png',
+    cover: '/images/profile/barker-bigsur2.jpg',
     notifMsg:
       'Seemless collaboration across industries regardless of location is the future. Git will be facilitator of this.'
   }
