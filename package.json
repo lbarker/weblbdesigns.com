@@ -22,6 +22,7 @@
   "dependencies": {
     "@mdi/font": "^7.0.96",
     "@splidejs/vue-splide": "^0.6.12",
+    "@vercel/nft": "^0.27.3",
     "rtl-sass": "^1.5.0",
     "vite-plugin-vuetify": "^1.0.2",
     "vue-countup-v3": "^1.1.0",
