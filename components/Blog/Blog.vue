@@ -12,7 +12,7 @@
       </p>
     </div>
     <div class="slider-wrap">
-      <div class="carousel" v-if="loaded">
+      <div v-if="loaded" class="carousel">
         <v-btn
           icon
           fab
@@ -21,26 +21,31 @@
         >
           <i class="ion-ios-arrow-back" />
         </v-btn>
-        <slick ref="slick" :options="slickOptions">
-          <div class="item item-props-first">
-            <div />
-          </div>
-          <div
+        <splide ref="slick" :options="slickOptions">
+          <splide-slide>
+            <div class="item item-props-first">
+              <div />
+            </div>
+          </splide-slide>
+          <splide-slide
             v-for="(item, index) in blogData"
             :key="index"
-            class="item"
           >
-            <blog-post-card
-              :img="item.img"
-              :title="item.title"
-              :desc="item.desc"
-              :href="item.href"
-            />
-          </div>
-          <div class="item item-props-last">
-            <div />
-          </div>
-        </slick>
+            <div class="item">
+              <blog-post-card
+                :img="item.img"
+                :title="item.title"
+                :desc="item.desc"
+                :href="item.href"
+              />
+            </div>
+          </splide-slide>
+          <splide-slide>
+            <div class="item item-props-last">
+              <div />
+            </div>
+          </splide-slide>
+        </splide>
         <v-btn
           icon
           fab
@@ -59,10 +64,12 @@
 </style>
 
 <script>
-import Title from '../Title'
-import BlogPostCard from '../Cards/BlogPost'
-import imgApi from '~/static/images/imgAPI'
+import { Splide, SplideSlide } from '@splidejs/vue-splide';
+import Title from '../Title';
+import BlogPostCard from '../Cards/BlogPost';
+import imgApi from '@/assets/images/imgAPI';
 
+// TODO: move this to content file, so it can be localized
 const blogData = [
   {
     img: 'https://about.gitlab.com/images/blogimages/barker.jpg',
@@ -71,62 +78,59 @@ const blogData = [
       'I just completed the CEO Shadow program for GitLab. It is a two-week program . . .',
     href: 'https://about.gitlab.com/blog/2021/02/26/ceo-shadow-takeaways-from-barker/'
   }
-]
+];
 
 export default {
   components: {
     'title-main': Title,
     BlogPostCard,
-    Slick: () => import('vue-slick')
+    Splide,
+    SplideSlide,
   },
   data() {
     return {
       loaded: false,
-      blogData: blogData,
+      blogData,
       slickOptions: {
-        dots: false,
-        infinite: false,
+        pagination: false,
         speed: 500,
-        autoplay: false,
-        slidesToShow: 4,
+        perPage: 4,
+        perMove: 1,
         arrows: false,
-        pauseOnHover: true,
-        variableWidth: true,
-        responsive: [
-          {
-            breakpoint: 1080,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1
-            }
+        autoWidth: true,
+        direction: 'ltr',
+        breakpoints: {
+          1080: {
+            perPage: 3,
           },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 1
-            }
-          }
-        ]
-      }
-    }
+          600: {
+            perPage: 2,
+          },
+        },
+        reducedMotion: {
+          speed: 500,
+          rewindSpeed: 1000,
+        },
+      },
+    };
   },
   mounted() {
-    this.loaded = true
+    this.loaded = true;
     setTimeout(() => {
-      if (this.$vuetify.rtl) {
-        const lastSlide = Math.floor(this.blogData.length - 2)
-        this.$refs.slick.goTo(lastSlide)
+      if (this.$vuetify.locale.isRtl) {
+        this.slickOptions.direction = 'rtl';
+      } else {
+        this.slickOptions.direction = 'ltr';
       }
-    }, 200)
+    }, 200);
   },
   methods: {
-    next: function() {
-      this.$refs.slick.next()
+    next() {
+      this.$refs.slick.go('>');
     },
-    prev: function() {
-      this.$refs.slick.prev()
-    }
-  }
-}
+    prev() {
+      this.$refs.slick.go('<');
+    },
+  },
+};
 </script>

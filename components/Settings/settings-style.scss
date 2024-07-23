@@ -58,18 +58,15 @@ $flag: '/images/flag-logo.png';
 }
 
 .setting {
-  width: 48px;
-  height: 48px;
-  margin: spacing(0, 1);
-  text-align: center;
-  line-height: 48px;
-  .icon.v-icon {
-    font-size: 24px;
+  :deep(.v-icon) {
+    font-size: 32px;
     transition: all 0.3s ease;
-    @include palette-text-secondary
   }
   .active {
     transform: rotate(30deg)
+  }
+  @include breakpoints-down(sm) {
+    margin: $spacing1
   }
 }
 
@@ -82,9 +79,16 @@ $flag: '/images/flag-logo.png';
 }
 
 .switch-toggle {
-  margin: spacing(0, 2);
-  ::v-deep .v-input--switch__thumb {
-    color: var(--v-secondary-base);
+  margin: spacing(-2, 2, 0);
+  height: 64px;
+  :deep(.v-switch__thumb) {
+    color: $palette-secondary-main
+  }
+  :deep(.v-switch__track) {
+    background-color: $palette-secondary-light
+  }
+  :deep(.v-selection-control) {
+    justify-content: center;
   }
 }
 
@@ -94,7 +98,7 @@ $flag: '/images/flag-logo.png';
   label {
     padding-top: 8px
   }
-  ::v-deep .v-messages {
+  :deep(.v-messages) {
     display: none
   }
 }

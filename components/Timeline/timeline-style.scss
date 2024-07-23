@@ -132,7 +132,7 @@
 .progress {
   border-radius: 10px;
   @include use-theme(background, $light-divider, $dark-divider);
-  ::v-deep .v-progress-linear__determinate {
+  :deep(.v-progress-linear__determinate) {
     transition: all 0.5s cubic-bezier(0, 0, 0, 0.96);
     border-radius: 10px;
     background-image: linear-gradient(120deg, $palette-secondary-main, $palette-primary-main);

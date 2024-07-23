@@ -3,7 +3,7 @@ const menu = [
   'about',
   'my-work',
   'testimonials',
-  'blog'
-]
+  'blog',
+];
 
-export default menu
+export default menu;

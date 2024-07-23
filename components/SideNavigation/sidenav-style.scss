@@ -1,3 +1,11 @@
+.navigation {
+  .v-container {
+    #main-wrap & {
+      padding: 0 24px;
+    }
+  }
+}
+
 .logo {
   display: block;
   margin: spacing(3, 0, 1);
@@ -11,11 +19,14 @@
 .text {
   font-size: 18px;
   text-transform: capitalize;
-  font-weight: $font-bold;
+  font-weight: $font-medium;
+  @include palette-text-primary;
 }
 
 .menu {
-  background: none;
+  &.v-list {
+    background: none;
+  }
   ul {
     padding: 0;
     margin: 0;
@@ -30,8 +41,8 @@
       content: "";
       position: absolute;
       @include left($spacing2 * -1);
-      top: 5px;
-      opacity: 0.2px;
+      top: 4px;
+      opacity: 0.2;
       background: linear-gradient(120deg, $palette-secondary-main, $palette-primary-main);
       height: 75%;
       width: 0;

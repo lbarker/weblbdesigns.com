@@ -7,10 +7,13 @@
       <h6 class="use-text-subtitle">
         {{ title }}
       </h6>
-      <p>
-        {{ description }}
+      <a v-if="href && desc" :href="href">
+        {{ desc }}
+      </a>
+
+      <p  v-if="desc">
+        {{ desc }}
       </p>
-      <a href="#">{{ link }}</a>
     </div>
   </v-card>
 </template>
@@ -24,24 +27,24 @@ export default {
   props: {
     img: {
       type: String,
-      required: true
+      required: true,
     },
     title: {
       type: String,
-      required: true
+      required: true,
     },
-    description: {
+    desc: {
       type: String,
-      required: true
-    },    
-    link: {
+      required: true,
+    },
+    href: {
       type: String,
-      required: true
+      required: true,
     },
     size: {
       type: String,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>

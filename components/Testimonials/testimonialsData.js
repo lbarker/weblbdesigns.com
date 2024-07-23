@@ -1,4 +1,4 @@
-import imgApi from '~/static/images/imgAPI'
+import imgApi from '@/assets/images/imgAPI';
 
 const testimonialsData = [
   {
@@ -51,6 +51,6 @@ const testimonialsData = [
     x: 300,
     y: 110
   }
-]
+];
 
-export default testimonialsData
+export default testimonialsData;

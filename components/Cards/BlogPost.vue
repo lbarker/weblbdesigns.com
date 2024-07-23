@@ -1,7 +1,7 @@
 <template>
   <v-card class="post">
     <figure>
-      <img :src="img" alt="thumb" />
+      <img :src="img" alt="thumb">
     </figure>
     <div class="text">
       <h5 class="use-text-subtitle2">
@@ -12,13 +12,13 @@
       </p>
     </div>
     <v-btn
-      :href="href"
-      text
+      :href=href
+      variant="text"
+      size="small"
       color="primary"
       class="readmore"
-    >
-      {{ $t('profileLanding.read_more') }}
-    </v-btn>
+      v-text="$t('profileLanding.read_more')"
+    />
   </v-card>
 </template>
 
@@ -31,20 +31,20 @@ export default {
   props: {
     img: {
       type: String,
-      required: true
+      required: true,
     },
     title: {
       type: String,
-      required: true
+      required: true,
     },
     desc: {
       type: String,
-      required: true
+      required: true,
     },
     href: {
       type: String,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>

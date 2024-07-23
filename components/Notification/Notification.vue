@@ -1,19 +1,23 @@
 <template>
   <v-snackbar
-    :timeout="-1"
     v-model="snackbar"
-    class="notification"
+    :timeout="-1"
+    class="notification violet"
+    location="left bottom"
   >
-    <div class="action">
-      {{ $t('common.notif_msg') }}
+    <div class="d-sm-flex align-center me-2">
+      <div class="action me-4">
+        {{ $t('common.notif_msg') }}
+      </div>
+      <v-btn
+        variant="outlined"
+        color="white"
+        class="button"
+        @click="snackbar = false"
+      >
+        {{ $t('common.accept') }}
+      </v-btn>
     </div>
-    <v-btn
-      color="secondary"
-      class="button"
-      @click="snackbar = false"
-    >
-      {{ $t('common.accept') }}
-    </v-btn>
   </v-snackbar>
 </template>
 
@@ -25,8 +29,8 @@
 export default {
   data() {
     return {
-      snackbar: true
-    }
-  }
-}
+      snackbar: true,
+    };
+  },
+};
 </script>

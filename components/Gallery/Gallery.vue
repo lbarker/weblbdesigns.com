@@ -9,8 +9,8 @@
       </title-main>
       <div class="filter">
         <v-btn
-          @click="filterChildren('all')"
           :class="{ selected: filter === 'all' }"
+          @click="filterChildren('all')"
         >
           All
         </v-btn>
@@ -45,8 +45,8 @@
             <image-thumb-card
               :img="item.img"
               :title="item.title"
-              :description="item.description"
-              :link="item.link"
+              :desc="item.desc"
+              :href="item.href"
               :size="item.size"
             />
           </div>
@@ -59,21 +59,22 @@
         </p>
       </hidden>
       <hidden v-if="loaded" point="smUp">
-        <slick ref="slick" :options="slickOptions">
-          <div
+        <splide ref="slick" :options="slickOptions">
+          <splide-slide
             v-for="(item, index) in data"
             :key="index"
-            class="item-carousel"
           >
-            <image-thumb-card
-              :img="item.img"
-              :title="item.title"
-              :description="item.description"
-              :link="item.link"
-              :size="item.size"
-            />
-          </div>
-        </slick>
+            <div class="item-carousel">
+              <image-thumb-card
+                :img="item.img"
+                :title="item.title"
+                :desc="item.desc"
+                :href="item.href"
+                :size="item.size"
+              />
+            </div>
+          </splide-slide>
+        </splide>
       </hidden>
     </v-container>
   </div>
@@ -84,84 +85,87 @@
 </style>
 
 <script>
-import imgAPI from '~/static/images/imgAPI'
-import ImageThumbCard from '../Cards/ImageThumb'
-import Title from '../Title'
-import Hidden from '../Hidden'
+import { Splide, SplideSlide } from '@splidejs/vue-splide';
+import imgAPI from '@/assets/images/imgAPI';
+import ImageThumbCard from '../Cards/ImageThumb';
+import Title from '../Title';
+import Hidden from '../Hidden';
 
+// TODO: move this to content file, so it can be localized
 const portfolio = [
-  {
+{
     img: '/images/projects/website-gitlab.png',
     title: 'GitLab Marketing Website',
-    description: 'Current maintainer and fullstack engineering lead',
-    link: 'https://about.gitlab.com/',
+    desc: 'Current maintainer and fullstack engineering lead',
+    href: 'https://handbook.gitlab.com/handbook/marketing/digital-experience/',
     size: 'short',
     category: 'web',
   },
   {
     img: '/images/projects/website-calpolycorporation.png',
     title: 'Cal Poly Corporation',
-    description: 'Past maintainer and fullstack engineering lead',
-    link: 'https://www.calpolycorporation.org/',
+    desc: 'Past maintainer and fullstack engineering lead',
+    href: 'Private project =/',
     size: 'short',
     category: 'web'
   },
   {
     img: '/images/projects/designsystem-slippers.png',
     title: 'Slippers',
-    description: 'Current maintainer and contributor',
-    link: 'https://gitlab.com/gitlab-com/marketing/inbound-marketing/slippers-ui',
+    desc: 'Current maintainer and contributor',
+    href: 'https://gitlab.com/gitlab-com/marketing/inbound-marketing/slippers-ui',
     size: 'short',
     category: 'design'
   },
   {
     img: '/images/projects/website-campusdining.png',
     title: 'Campus Dining, Cal Poly',
-    description: 'Past maintainer and fullstack engineering lead',
-    link: 'https://www.calpolydining.com/',
+    desc: 'Past maintainer and fullstack engineering lead',
+    href: '#',
     size: 'short',
     category: 'web'
   },
   {
     img: '/images/projects/designsystem-cookbook.png',
     title: 'The Cookbook',
-    description: 'Past maintainer and fullstack engineering lead',
-    link: 'https://www.calpolydining.com/pattern-library/',
+    desc: 'Past maintainer and fullstack engineering lead',
+    href: '#',
     size: 'short',
     category: 'design'
   },
   {
     img: '/images/projects/designsystem-wookiepedia.png',
     title: 'The Wookiepedia',
-    description: 'Past maintainer and fullstack engineering lead',
-    link: 'https://wookiepedia.calpolycorporation.org/',
+    desc: 'Past maintainer and fullstack engineering lead',
+    href: 'https://wookiepedia.calpolycorporation.org/',
     size: 'short',
     category: 'design'
   },
   {
     img: '/images/projects/website-palekaioutrigger.png',
     title: 'Pale Kai Outrigger',
-    description: 'Past maintainer and engineering lead',
-    link: 'https://www.palekai.org/',
+    desc: 'Past maintainer and engineering lead',
+    href: 'https://github.com/lbarker/palekai.org',
     size: 'short',
     category: 'web'
   },
   {
     img: '/images/projects/application-xyztextbooks.png',
     title: 'XYZ Online Textbook Platform',
-    description: 'Past maintainer and frontend engineering lead',
-    link: 'https://www.xyztextbooks.com/ebook/title/applied_calculus',
+    desc: 'Past maintainer and frontend engineering lead',
+    href: 'https://www.xyztextbooks.com/ebook/title/applied_calculus',
     size: 'short',
     category: 'app'
   }
-]
+];
 
 export default {
   components: {
     ImageThumbCard,
     'title-main': Title,
     Hidden,
-    Slick: () => import('vue-slick')
+    Splide,
+    SplideSlide,
   },
   data() {
     return {
@@ -170,48 +174,47 @@ export default {
       loaded: false,
       filter: 'all',
       slickOptions: {
-        dots: false,
-        infinite: false,
+        paginations: false,
         speed: 500,
-        autoplay: false,
-        slidesToShow: 1,
-        arrows: false
-      }
-    }
+        perPage: 1,
+        arrows: false,
+        direction: 'ltr',
+      },
+    };
+  },
+  computed: {
+    isMobile() {
+      const xsDown = this.$vuetify.display.xsAndDown;
+      return xsDown;
+    },
   },
   mounted() {
-    this.data = portfolio
-    this.loaded = true
+    this.data = portfolio;
+    this.loaded = true;
+    setTimeout(() => {
+      if (this.$vuetify.locale.isRtl) {
+        this.slickOptions.direction = 'rtl';
+      } else {
+        this.slickOptions.direction = 'ltr';
+      }
+    }, 100);
   },
   methods: {
     filterChildren(name) {
       if (name !== 'all') {
-        const filteredData = portfolio.filter(item => item.category === name)
-        this.data = filteredData
-        this.filter = name
+        const filteredData = portfolio.filter(item => item.category === name);
+        this.data = filteredData;
+        this.filter = name;
       } else {
-        this.data = portfolio
-        this.filter = 'all'
+        this.data = portfolio;
+        this.filter = 'all';
       }
 
-      this.isLoaded = false
+      this.isLoaded = false;
       setTimeout(() => {
-        this.isLoaded = true
-      }, 700)
-
-      // re-init slick carousel for mobile
-      if (this.isMobile) {
-        this.$nextTick(() => {
-          this.$refs.slick.reSlick()
-        })
-      }
-    }
+        this.isLoaded = true;
+      }, 700);
+    },
   },
-  computed: {
-    isMobile() {
-      const xsDown = this.$store.state.breakpoints.xsDown
-      return xsDown.indexOf(this.$mq) > -1
-    }
-  }
-}
+};
 </script>

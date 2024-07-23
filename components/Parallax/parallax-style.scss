@@ -21,9 +21,6 @@
     width: 100%;
     display: block;
     position: absolute;
-    ::v-deep .Masthead, ::v-deep .Masthead__image {
-      overflow: visible
-    }
   }
   .figure > div {
     height: 800px;

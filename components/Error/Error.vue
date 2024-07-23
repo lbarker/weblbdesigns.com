@@ -13,14 +13,16 @@
         </v-col>
         <v-col cols="12" sm="7">
           <div class="text">
-            <h4 class="display-1">{{ text }}</h4>
-            <p>
+            <h4 class="use-text-title2 font-weight-bold">
+              {{ text }}
+            </h4>
+            <p class="use-text-subtitle2">
               {{ $t('common.404_subtitle') }}
             </p>
             <v-btn
               color="primary"
               href="/"
-              large
+              size="large"
               class="button"
             >
               {{ $t('common.back') }}
@@ -41,12 +43,12 @@ export default {
   props: {
     errCode: {
       type: String,
-      default: '404'
+      default: '404',
     },
     text: {
       type: String,
-      default: ''
-    }
-  }
-}
+      default: '',
+    },
+  },
+};
 </script>

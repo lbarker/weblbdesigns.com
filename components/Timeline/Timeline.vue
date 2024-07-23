@@ -1,7 +1,7 @@
 <template>
   <div v-if="loaded">
     <div id="timeline">
-      <div class="root" v-scroll="handleScroll">
+      <div ref="wrapper" v-scroll="handleScroll" class="root">
         <v-container :class="{'fixed-width': isDesktop}">
           <v-row>
             <v-col lg="2" cols="12" class="pa-0">
@@ -18,75 +18,51 @@
                     <h5 class="title-timeline use-text-subtitle">
                       {{ $t('profileLanding.timeline_experience') }}
                     </h5>
-                    <u-animate-container>
+                    <div>
                       <ul>
                         <li>
-                          <u-animate
-                            :offset="100"
-                            name="fadeInLeftShort"
-                            duration="0.3s"
+                          <div
+                            data-aos="fade-left"
+                            data-aos-offset="100"
+                            data-aos-duration="300"
                           >
                             <div>
                               <h3 class="use-text-subtitle2 pb-2">Engineering Manager</h3>
                               <p class="mb-2">at GitLab</p>
                               <p class="time">April 2022 - Present</p>
                             </div>
-                          </u-animate>
+                          </div>
                         </li>
                         <li>
-                          <u-animate
-                            :offset="100"
-                            name="fadeInLeftShort"
-                            duration="0.3s"
-                          >
-                            <div>
-                              <h3 class="use-text-subtitle2 pb-2">Senior Fullstack Engineer</h3>
-                              <p class="mb-2">at GitLab</p>
-                              <p class="time">2019 - April 2022</p>
-                            </div>
-                          </u-animate>
+                          <div>
+                            <h3 class="use-text-subtitle2 pb-2">Senior Fullstack Engineer</h3>
+                            <p class="mb-2">at GitLab</p>
+                            <p class="time">2019 - April 2022</p>
+                          </div>
                         </li>
                         <li>
-                          <u-animate
-                            :offset="100"
-                            name="fadeInLeftShort"
-                            duration="0.3s"
-                          >
                             <div>
                               <h3 class="use-text-subtitle2 pb-2">Fullstack Engineer</h3>
                               <p class="mb-2">at Cal Poly Corporation</p>
                               <p class="time">2015 - 2019</p>
                             </div>
-                          </u-animate>
                         </li>
                         <li>
-                          <u-animate
-                            :offset="100"
-                            name="fadeInLeftShort"
-                            duration="0.3s"
-                          >
-                            <div>
+                           <div>
                               <h3 class="use-text-subtitle2 pb-2">Frontend Developer</h3>
                               <p class="mb-2">at XYZ Textbooks</p>
                               <p class="time">2013 - 2015</p>
                             </div>
-                          </u-animate>
                         </li>
                         <li>
-                          <u-animate
-                            :offset="100"
-                            name="fadeInLeftShort"
-                            duration="0.3s"
-                          >
                             <div>
                               <h3 class="use-text-subtitle2 pb-2">Freelance Web Developer</h3>
                               <p class="mb-2">at WebLB Designs</p>
                               <p class="time">2007 - 2013</p>
                             </div>
-                          </u-animate>
                         </li>
                       </ul>
-                    </u-animate-container>
+                    </div>
                   </div>
                 </v-col>
                 <v-col sm="6" cols="12" class="px-sm-3 px-6 py-0">
@@ -97,60 +73,98 @@
                     <ul>
                       <li>
                         <div class="text-icon">
-                          <i class="ion-ios-snowy" />
-                          <h5 class="use-text-subtitle2">Leadership</h5>
+                          <i class="ion-ios-star-outline" />
+                          <h5 class="use-text-subtitle2">
+                            Leadership
+                          </h5>
                         </div>
                         <v-progress-linear
                           :height="10"
-                          :value="play ? 75 : 0"
+                          :model-value="play ? 95 : 0"
                           color="none"
                           class="progress"
                         />
                       </li>
                       <li>
                         <div class="text-icon">
-                          <i class="ion-wand" />
-                          <h5 class="use-text-subtitle2">JAMstack</h5>
+                          <i class="ion-logo-dribbble" />
+                          <h5 class="use-text-subtitle2">
+                            Continuous Integration and Delivery 
+                          </h5>
                         </div>
                         <v-progress-linear
                           :height="10"
-                          :value="play ? 93 : 0"
+                          :model-value="play ? 93 : 0"
                           color="none"
                           class="progress"
                         />
                       </li>
                       <li>
                         <div class="text-icon">
-                          <i class="ion-social-dribbble-outline" />
-                          <h5 class="use-text-subtitle2">DevOps</h5>
+                          <i class="ion-ios-create-outline" />
+                          <h5 class="use-text-subtitle2">
+                            Content Management Systems
+                          </h5>
                         </div>
                         <v-progress-linear
                           :height="10"
-                          :value="play ? 85 : 0"
-                          color="none"                  
+                          :model-value="play ? 91 : 0"
+                          color="none"
                           class="progress"
                         />
                       </li>
                       <li>
                         <div class="text-icon">
-                          <i class="ion-ios-world-outline" />
-                          <h5 class="use-text-subtitle2">CI/CD</h5>
+                          <i class="ion-ios-move" />
+                          <h5 class="use-text-subtitle2">
+                            Design Systems
+                          </h5>
                         </div>
                         <v-progress-linear
                           :height="10"
-                          :value="play ? 80 : 0"
-                          color="none"    
+                          :model-value="play ? 85 : 0"
+                          color="none"
                           class="progress"
                         />
                       </li>
                       <li>
                         <div class="text-icon">
-                          <i class="ion-ios-trending-up-sharp" />
-                          <h5 class="use-text-subtitle2">Agile Planning</h5>
+                          <i class="ion-ios-globe" />
+                          <h5 class="use-text-subtitle2">
+                            Globalization
+                          </h5>
                         </div>
                         <v-progress-linear
                           :height="10"
-                          :value="play ? 86 : 0"
+                          :model-value="play ? 80 : 0"
+                          color="none"
+                          class="progress"
+                        />
+                      </li>
+                      <li>
+                        <div class="text-icon">
+                          <i class="ion-ios-switch" />
+                          <h5 class="use-text-subtitle2">
+                            A/B Testing
+                          </h5>
+                        </div>
+                        <v-progress-linear
+                          :height="10"
+                          :model-value="play ? 75 : 0"
+                          color="none"
+                          class="progress"
+                        />
+                      </li>
+                      <li>
+                        <div class="text-icon">
+                          <i class="ion-ios-trending-up" />
+                          <h5 class="use-text-subtitle2">
+                            Marketing Automation
+                          </h5>
+                        </div>
+                        <v-progress-linear
+                          :height="10"
+                          :model-value="play ? 70 : 0"
                           color="none"
                           class="progress"
                         />
@@ -172,41 +186,42 @@
 </style>
 
 <script>
-import Hidden from '../Hidden'
-import brand from '~/static/text/brand'
+import AOS from 'aos';
+import Hidden from '../Hidden';
+import brand from '@/assets/text/brand';
 
 export default {
   components: {
-    Hidden
+    Hidden,
   },
   data() {
     return {
       loaded: false,
-      brand: brand,
-      play: false
-    }
-  },
-  mounted() {
-    this.loaded = true
-  },
-  methods: {
-    handleScroll: function() {
-      const top = this.offsetTop - window.innerHeight + 400
-      if (window.scrollY > top) {
-        return (this.play = true)
-      }
-      return false
-    }
+      brand,
+      play: false,
+    };
   },
   computed: {
-    offsetTop: function() {
-      const elm = document.getElementById('timeline')
-      return elm.getBoundingClientRect().y
-    },
     isDesktop() {
-      const mdUp = this.$store.state.breakpoints.mdUp
-      return mdUp.indexOf(this.$mq) > -1
-    }
-  }
-}
+      const mdUp = this.$vuetify.display.mdAndUp;
+      return mdUp;
+    },
+  },
+  mounted() {
+    this.loaded = true;
+    AOS.init({
+      once: true,
+    });
+  },
+  methods: {
+    handleScroll() {
+      const { wrapper } = this.$refs;
+      const windowBound = wrapper.getBoundingClientRect();
+
+      if (windowBound.top < 100) {
+        this.play = true;
+      }
+    },
+  },
+};
 </script>

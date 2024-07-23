@@ -75,9 +75,11 @@ $gold: #D6BD96;
   figure {
     height: 150px;
     margin: spacing(0, 0, 2);
+    @include breakpoints-down(sm) {
+      height: 50px;
+    }
     img {
       height: 100%
-      
     }
   }
   p {
@@ -98,13 +100,15 @@ $gold: #D6BD96;
 
 .photo {
   position: relative;
+  z-index: 1;
   margin-top: -140px;
   background: $palette-common-white;
   width: 270px;
-  height: 300px;
+  height: 345px;
+  overflow: visible;
   @include breakpoints-down(sm) {
-    width: 270px;
-    min-height: 300px;
+    width: 200px;
+    min-height: 200px;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -112,7 +116,7 @@ $gold: #D6BD96;
   figure {
     margin: 0;
     img {
-      width: 260px;
+      width: 100%;
       min-height: 100%;
     }
   }

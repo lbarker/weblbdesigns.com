@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="main-wrap">
+    <div class="main-wrap scroll-nav-content">
       <main-header />
       <section id="home">
         <banner-nav />
@@ -13,9 +13,6 @@
       <div class="grey-bg">
         <div class="deco-wrap">
           <decoration />
-          <section id="services">
-            <services />
-          </section>
           <section id="my-work" class="space-top-short space-bottom-short">
             <gallery />
           </section>
@@ -27,9 +24,6 @@
           <decoration />
           <section id="blog" class="space-top-short">
             <blog />
-          </section>
-          <section id="contact" class="space-top">
-            <main-footer />
           </section>
         </div>
       </div>
@@ -44,8 +38,6 @@
 </template>
 
 <style scoped lang="scss">
-@import '~/assets/styles';
-
 @function section-margin($margin) {
   @return $margin * 20;
 }
@@ -67,11 +59,11 @@
 .space-bottom {
   margin-bottom: section-margin(6px);
   @include breakpoints-down(sm) {
-    margin-bottom: section-margin($spacing1 / 2);
+    margin-bottom: section-margin($spacing1 * 0.5);
   }
 }
 .space-bottom-short {
-  margin-bottom: section-margin($spacing1 / 2);
+  margin-bottom: section-margin($spacing1 * 0.5);
 }
 .space-top {
   margin-top: section-margin(6px);
@@ -80,7 +72,7 @@
   }
 }
 .space-top-short {
-  margin-top: section-margin($spacing1 / 2);
+  margin-top: section-margin($spacing1 * 0.5);
 }
 .container-wrap {
   margin-top: -40px;
@@ -90,7 +82,7 @@
 }
 .deco-wrap {
   position: relative;
-  &.bottom ::v-deep .inner-parallax {
+  &.bottom :deep(.inner-parallax) {
     top: -1500px;
   }
 }
@@ -103,23 +95,25 @@
 </style>
 
 <script>
-import Header from '~/components/Header'
-import BannerNav from '~/components/BannerNav'
-import About from '~/components/About'
-import Timeline from '~/components/Timeline'
-import Decoration from '~/components/Parallax/Decoration'
-import Services from '~/components/Services'
-import Gallery from '~/components/Gallery'
-import Counter from '~/components/Counter'
-import Testimonials from '~/components/Testimonials'
-import Blog from '~/components/Blog'
-import Footer from '~/components/Footer'
-import Hidden from '~/components/Hidden'
-import PageNav from '~/components/PageNav'
-import Notification from '~/components/Notification'
-import brand from '~/static/text/brand'
+import { onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+import Header from '@/components/Header';
+import BannerNav from '@/components/BannerNav';
+import About from '@/components/About';
+import Timeline from '@/components/Timeline';
+import Decoration from '@/components/Parallax/Decoration';
+import Gallery from '@/components/Gallery';
+import Counter from '@/components/Counter';
+import Testimonials from '@/components/Testimonials';
+import Blog from '@/components/Blog';
+import Footer from '@/components/Footer';
+import Hidden from '@/components/Hidden';
+import PageNav from '@/components/PageNav';
+import Notification from '@/components/Notification';
+import brand from '@/assets/text/brand';
+import { defineNuxtComponent, useRouter, useCookie } from '#app';
 
-export default {
+export default defineNuxtComponent({
   components: {
     'main-header': Header,
     About,
@@ -130,15 +124,29 @@ export default {
     Gallery,
     Testimonials,
     Blog,
-    // 'main-footer': Footer,
+    'main-footer': Footer,
     PageNav,
     Hidden,
-    Notification
+    Notification,
+  },
+  setup() {
+    // push route to the stored cookie languages only for index page
+    const router = useRouter();
+    const storedLang = useCookie('i18n_redirected');
+    const i18nLocale = useI18n();
+
+    const defaultLocale = '/' + i18nLocale.fallbackLocale.value;
+    onMounted(() => {
+      const rootUrl = document.location.pathname === '/' || document.location.pathname === defaultLocale;
+      if (storedLang.value && rootUrl) {
+        router.push({ path: `/${storedLang.value}` });
+      }
+    });
   },
   head() {
     return {
-      title: brand.profile.name + ' -  Portfolio'
-    }
-  }
-}
+      title: brand.profile.name + ' -  Luxi Theme Profile',
+    };
+  },
+});
 </script>

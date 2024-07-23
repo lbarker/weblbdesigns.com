@@ -25,16 +25,16 @@
             <hidden point="mdUp">
               <div class="socmed">
                 <v-btn icon small class="margin">
-                  <i class="ion-social-facebook" />
+                  <i class="ion-logo-facebook" />
                 </v-btn>
                 <v-btn icon small class="margin">
-                  <i class="ion-social-twitter" />
+                  <i class="ion-logo-twitter " />
                 </v-btn>
                 <v-btn icon small class="margin">
-                  <i class="ion-social-instagram" />
+                  <i class="ion-logo-instagram" />
                 </v-btn>
                 <v-btn icon small class="margin">
-                  <i class="ion-social-linkedin" />
+                  <i class="ion-logo-linkedin" />
                 </v-btn>
               </div>
             </hidden>
@@ -42,10 +42,10 @@
               <h5>
                 {{ $t('profileLanding.banner_desc') }}
               </h5>
-            </hidden>  
+            </hidden>
             <v-card class="photo">
               <figure>
-                <img :src="brand.profile.avatar" alt="avatar" />
+                <img :src="brand.profile.avatar" alt="avatar">
               </figure>
               <span class="frame" />
             </v-card>
@@ -62,23 +62,23 @@
 </style>
 
 <script>
-import Hidden from '../Hidden'
-import brand from '~/static/text/brand'
+import Hidden from '../Hidden';
+import brand from '@/assets/text/brand';
 
 export default {
   components: {
-    Hidden
+    Hidden,
   },
   data() {
     return {
-      brand: brand
-    }
+      brand,
+    };
   },
   computed: {
     isMobile() {
-      const smDown = this.$store.state.breakpoints.smDown
-      return smDown.indexOf(this.$mq) > -1
-    }
-  }
-}
+      const smDown = this.$vuetify.display.smAndDown;
+      return smDown;
+    },
+  },
+};
 </script>

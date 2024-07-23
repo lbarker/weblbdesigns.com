@@ -3,11 +3,7 @@
     <div class="inner-parallax">
       <div class="figure">
         <div v-if="loaded">
-          <parallax
-            :speed-factor="0.5"
-            :section-height="2500"
-            direction="down"
-          >
+          <scroll-parallax :speed="0.5">
             <svg
               fill="#cccccc"
               width="845px"
@@ -16,12 +12,8 @@
             >
               <use xlink:href="/images/decoration/dot-deco.svg#dot" />
             </svg>
-          </parallax>
-          <parallax
-            :speed-factor="0.3"
-            :section-height="2000"
-            direction="down"
-          >
+          </scroll-parallax>
+          <scroll-parallax :speed="0.3">
             <svg
               fill="#cccccc"
               width="902px"
@@ -30,7 +22,7 @@
             >
               <use xlink:href="/images/decoration/triangle-deco.svg#triangle" />
             </svg>
-          </parallax>
+          </scroll-parallax>
         </div>
       </div>
     </div>
@@ -42,18 +34,14 @@
 </style>
 
 <script>
-import Parallax from 'vue-parallaxy'
 export default {
-  components: {
-    Parallax
-  },
   data() {
     return {
-      loaded: false
-    }
+      loaded: false,
+    };
   },
   mounted() {
-    this.loaded = true
-  }
-}
+    this.loaded = true;
+  },
+};
 </script>

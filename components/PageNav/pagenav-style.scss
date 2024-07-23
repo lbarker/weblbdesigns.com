@@ -1,6 +1,4 @@
-@import '~/assets/styles';
-
-.fab.v-btn {
+.fab {
   transform: scale(0.5);
   transition: all 0.5s ease;
   opacity: 0;
@@ -8,13 +6,10 @@
   bottom: 0;
   right: 0;
   border-radius: 0;
-  color: $palette-common-white;
   font-weight: $font-bold;
+  background: $palette-common-black !important;
   .icon {
     font-size: 40px;
-  }
-  &:hover {
-    background: $palette-primary-dark !important
   }
 }
 
@@ -24,12 +19,6 @@
   bottom: 40px;
   right: 40px;
   width: 56px;
-  nav {
-    height: 0;
-    overflow: hidden;
-    transition: height 0.5s ease;
-    transition-delay: 0.5s;
-  }
   &.show {
     .fab {
       opacity: 1;
@@ -37,11 +26,10 @@
     }
   }
   .section-nav {
-    section {
-      margin: 0 0 76px 22px;
-      padding: 0;
-      position: relative
-    }
+    margin: 0 0 76px 22px;
+    direction: ltr;
+    padding: 0;
+    position: relative;
     a {
       margin-bottom: $spacing3;
       opacity: 0;
@@ -50,23 +38,20 @@
       width: 12px;
       height: 12px;
       @include shadow2;
-      @include palette-background-paper;
-      border: 1px solid;
-      @include use-theme(border-color, $light-text-secondary, $dark-text-secondary);
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid $palette-primary-dark;
+      @include use-theme(border-color, $light-text-hint, $dark-text-hint);
       display: block;
       transition: all 0.4s ease;
       color: transparent;
       &.active {
-        @include palette-background-text-primary;
+        background: $palette-common-black;
         border: 1px solid $palette-primary-light;
       }
     }
   }
   &:hover {
-    nav {
-      transition-delay: 0s;
-      height: 100%
-    }
     .section-nav a {
       opacity: 1;
       top: 0 !important;
@@ -76,5 +61,5 @@
 
 .tooltip {
   text-transform: capitalize;
-  font-size: 14px;
+  font-size: 14;
 }
