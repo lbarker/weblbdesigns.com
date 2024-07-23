@@ -18,7 +18,7 @@
               </div>
               <div class="item">
                 <figure>
-                  <img src="/images/profile/barker-snow.jpg" alt="badge" />
+                  <img src="/images/profile/barker-fam.jpg" alt="badge" />
                 </figure>
               </div>
             </div>
