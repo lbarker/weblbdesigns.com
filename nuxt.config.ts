@@ -102,6 +102,9 @@ export default defineNuxtConfig({
   },
   build: {
     transpile: ['vuetify'],
+    rollupOptions: {
+      external: ['/images/profile/barker-fam.jpg']
+    },
     extend(config) {
       config.performance.hints = false
     },
