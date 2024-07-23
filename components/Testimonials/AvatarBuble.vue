@@ -16,12 +16,12 @@ export default {
   props: {
     avatar: {
       type: String,
-      default: ''
+      default: '',
     },
     name: {
       type: String,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>

@@ -22,16 +22,14 @@
     background: none !important;
     backdrop-filter: none !important;
   }
-  ::v-deep .v-toolbar__content {
+  :deep(.v-toolbar__content) {
     height: auto !important;
     margin: 4px 0
   }
-  &.v-sheet {
-    &.fixed {
-      @include use-theme(background-color, rgba(255, 255, 255, 0.8), rgba(66, 66, 66, 0.8));
-    }
+  &.fixed {
+    @include use-theme(background-color, rgba(255, 255, 255, 0.8), rgba(66, 66, 66, 0.8));
   }
-  .container {
+  .v-container {
     #main-wrap & {
       @include breakpoints-down(md) {
         padding-left: 0
@@ -197,18 +195,19 @@ nav.nav-menu {
       position: relative;
       display: inline-block;
       .v-btn  {
+        letter-spacing: 0;
         color: $palette-common-white;
         text-transform: capitalize;
-        font-Size: 16px;
+        font-size: 16px;
         font-weight: $font-medium;
         background: none !important;
         box-shadow: none;
         position: relative;
         padding: 6px;
         margin: spacing(0, 1);
-        margin-top: $spacing1 / 2;
+        margin-top: $spacing1 * 0.5;
         min-width: 0;
-        &:after {
+        &:before {
           content: '';
           height: 5px;
           position: absolute;
@@ -221,14 +220,14 @@ nav.nav-menu {
         &:hover {
           transition: all 0.3s ease-out;
           opacity: 0.5;
-          &:after {
+          &:before {
             width: 20px;
             background: $palette-common-white
           }
         }
         &.active {
           color: $palette-secondary-light;
-          &:after {
+          &:before {
             background: $palette-common-white;
             width: 20px
           }
@@ -289,7 +288,7 @@ nav.nav-menu {
     list-style: none;
     li {
       text-align: center;
-      ::v-deep .v-btn {
+      :deep(.v-btn) {
         font-size: 24px;
         @include palette-text-primary;
         padding: spacing(2.5, 4);

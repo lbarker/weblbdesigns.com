@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-app-bar
-      v-scroll="handleScroll"
       id="header"
+      v-scroll="handleScroll"
       :class="{ fixed: invert || fixed || isMobile, 'open-drawer': openDrawer }"
       class="header"
       fixed
@@ -18,26 +18,27 @@
             <v-btn
               :class="{ 'is-active': openDrawer }"
               class="hamburger hamburger--spin mobile-menu"
-              @click.stop="handleToggleOpen"
               text
               icon
+              @click.stop="handleToggleOpen"
             >
               <span class="hamburger-box">
                 <span class="bar hamburger-inner" />
               </span>
             </v-btn>
             <div class="logo">
-              <nuxt-link v-if="invert" :to="link.profile.home">
+              <a v-if="invert" :to="link.profile.home">
                 <img :src="logo" alt="logo">
-              </nuxt-link>
-              <scrollactive
-                v-if="!invert && loaded"
-                tag="span"
-              >
-                <a href="#home" class="anchor-link scrollactive-item">
+              </a>
+              <span v-else>
+                <a
+                  v-smooth-scroll="{ offset: 100 }"
+                  href="#home"
+                  class="anchor-link scrollactive-item"
+                >
                   <img :src="logo" alt="logo">
                 </a>
-              </scrollactive>
+              </span>
             </div>
             <setting-menu :invert="invert" />
           </nav>
@@ -47,34 +48,21 @@
     <transition name="fade">
       <div v-if="openDrawer" class="paper-nav">
         <div class="mobile-nav">
-          <scrollactive
-            v-if="loaded"
-            :offset="navOffset"
-            active-class="active"
-          >
-            <ul class="menu">
-              <li
-                v-for="(item, index) in menuList"
-                :key="index"
-                :style="{ 'animation-duration': index * 0.15 + 's' }"
-              >
-                <v-btn text :href="item.url" @click="setOffset(item.offset)">
-                  {{ $t('profileLanding.header_'+item.name) }}
-                </v-btn>
-              </li>
-              <li>
-                <div class="socmed">
-                  <v-btn icon small class="margin">
-                    <a href="https://gitlab.com/laurenbarker"><ion-icon name="logo-gitlab"></ion-icon></a>           
-                  </v-btn>
-                  <v-btn icon small class="margin">
-                    <a href="https://www.linkedin.com/in/weblbdesigns/"><ion-icon name="logo-linkedin"></ion-icon></a>
-                  </v-btn>
-                </div>
-              </li>
-            </ul>
-            
-          </scrollactive>
+          <ul class="menu">
+            <li
+              v-for="(item, index) in menuList"
+              :key="index"
+              :style="{ 'animation-duration': index * 0.15 + 's' }"
+            >
+              <v-btn
+                :href="item.url"
+                :class="{ active: activeMenu === item.name }"
+                variant="text"
+                @click="scrollToMyEl(item.name)"
+                v-text="$t('profileLanding.header_'+item.name)"
+              />
+            </li>
+          </ul>
         </div>
       </div>
     </transition>
@@ -86,79 +74,120 @@
 </style>
 
 <script>
-import logo from '~/static/images/profile-logo.svg'
-import routeLink from '~/static/text/link'
-import Settings from '../Settings'
-import navMenu from '../SideNavigation/menu'
-import icons from '../BannerNav/ionicons.js'
+import { ref, inject } from 'vue';
+import logo from '@/assets/images/profile-logo.svg';
+import routeLink from '@/assets/text/link';
+import { useRouter } from '#app';
+import Settings from '../Settings';
+import navMenu from '../SideNavigation/menu';
 
-let counter = 0
+let counter = 0;
 function createData(name, url, offset) {
-  counter += 1
+  counter += 1;
   return {
     id: counter,
     name,
     url,
-    offset
-  }
+    offset,
+  };
 }
 
 export default {
   components: {
     'setting-menu': Settings,
-    icons
   },
   props: {
     invert: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+  },
+  setup() {
+    const openDrawer = ref(false);
+
+    const smoothScroll = inject('smoothScroll');
+    function scrollToMyEl(elemId) {
+      const myEl = document.getElementById(elemId);
+      const router = useRouter();
+      openDrawer.value = false;
+
+      router.push(`#${elemId}`);
+      smoothScroll({
+        scrollTo: myEl, // scrollTo is also allowed to be number
+        hash: `#${elemId}`, // required if updateHistory is true
+        offset: -50,
+      });
     }
+
+    function handleToggleOpen() {
+      openDrawer.value = !openDrawer.value;
+    }
+
+    return {
+      scrollToMyEl,
+      openDrawer,
+      handleToggleOpen,
+    };
   },
   data() {
     return {
-      logo: logo,
+      logo,
       link: routeLink,
       loaded: false,
       show: false,
       fixed: false,
-      openDrawer: false,
-      navOffset: 20,
+      activeMenu: '',
+      sections: {},
       menuList: [
         createData(navMenu[0], '#' + navMenu[0]),
         createData(navMenu[1], '#' + navMenu[1], -100),
         createData(navMenu[2], '#' + navMenu[2]),
         createData(navMenu[3], '#' + navMenu[3], -40),
-        createData(navMenu[4], '#' + navMenu[4], -40)
-      ]
-    }
-  },
-  mounted() {
-    this.loaded = true
-  },
-  methods: {
-    handleScroll: function() {
-      if (window.scrollY > 80) {
-        return (this.fixed = true)
-      }
-      return (this.fixed = false)
-    },
-    setOffset: function(offset) {
-      this.navOffset = offset
-      this.openDrawer = false
-    },
-    handleToggleOpen: function() {
-      this.openDrawer = !this.openDrawer
-    }
+        createData(navMenu[4], '#' + navMenu[4], -40),
+      ],
+    };
   },
   computed: {
     isMobile() {
-      const mdDown = this.$store.state.breakpoints.mdDown
-      return mdDown.indexOf(this.$mq) > -1
+      const mdDown = this.$vuetify.display.mdAndDown;
+      return mdDown;
     },
     isDesktop() {
-      const mdUp = this.$store.state.breakpoints.mdUp
-      return mdUp.indexOf(this.$mq) > -1
+      const mdUp = this.$vuetify.display.mdAndUp;
+      return mdUp;
+    },
+  },
+  mounted() {
+    this.loaded = true;
+    const id = window.location.hash;
+    const content = id.replace('#', '');
+    const element = document.getElementById(content);
+    if (element) {
+      element.scrollIntoView();
     }
-  }
-}
+
+    const section = document.querySelectorAll('.scroll-nav-content > *');
+    Array.prototype.forEach.call(section, (e) => {
+      this.sections[e.id] = e.offsetTop;
+    });
+  },
+  methods: {
+    handleScroll() {
+      const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+      const topPosition = scrollPosition + 50;
+
+      Object.keys(this.sections).forEach((i) => {
+        if (this.sections[i] <= topPosition) {
+          this.activeMenu = i;
+        }
+      });
+
+      if (scrollPosition > 70) {
+        this.fixed = true;
+      } else {
+        this.fixed = false;
+      }
+    },
+  },
+};
 </script>

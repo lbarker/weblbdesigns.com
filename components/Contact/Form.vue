@@ -25,6 +25,7 @@
                     :rules="nameRules"
                     :label="$t('profileLanding.form_name')"
                     class="input"
+                    variant="underlined"
                     required
                   />
                 </v-col>
@@ -34,6 +35,7 @@
                     :rules="emailRules"
                     :label="$t('profileLanding.form_email')"
                     class="input"
+                    variant="underlined"
                     required
                   />
                 </v-col>
@@ -41,6 +43,7 @@
                   <v-textarea
                     v-model="message"
                     rows="6"
+                    variant="underlined"
                     class="input"
                     :label="$t('profileLanding.form_message')"
                   />
@@ -49,9 +52,9 @@
               <div class="btn-area">
                 <v-btn
                   color="primary"
-                  large
-                  @click="validate"
+                  size="large"
                   block
+                  @click="validate"
                 >
                   {{ $t('profileLanding.form_send') }}
                 </v-btn>
@@ -79,17 +82,17 @@ export default {
       email: '',
       emailRules: [
         v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
-      message: ''
-    }
+      message: '',
+    };
   },
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        this.openNotif = true
+        this.openNotif = true;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

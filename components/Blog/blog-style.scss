@@ -28,7 +28,7 @@
 
 .carousel {
   position: relative;
-  ::v-deep .slick-list {
+  :deep(.slick-list) {
     overflow: visible
   }
   @include breakpoints-down(sm) {
@@ -59,10 +59,10 @@
   @include palette-background-paper;
   border: none;
   box-shadow: none;
-  .v-application--is-rtl & {
+  .v-locale--is-rtl & {
     transform: scale(2.5) rotate(180deg)
   }
-  .v-application--is-ltr & {
+  .v-locale--is-ltr & {
     transform: scale(2.5) rotate(0deg)
   }
   @include breakpoints-down(sm) {
@@ -83,17 +83,17 @@
 
 .item-props-first {
   div {
-    .v-application--is-rtl & {
+    .v-locale--is-rtl & {
       width: 350px 
     }
-    .v-application--is-ltr & {
+    .v-locale--is-ltr & {
       width: 400px 
     }
     @media (max-width: 1500px) {
-      .v-application--is-rtl & {
+      .v-locale--is-rtl & {
         width: 500px 
       }
-      .v-application--is-ltr & {
+      .v-locale--is-ltr & {
         width: 300px 
       }
     }
@@ -104,17 +104,17 @@
 }
 .item-props-last {
   div {
-    .v-application--is-rtl & {
+    .v-locale--is-rtl & {
       width: 350px 
     }
-    .v-application--is-ltr & {
+    .v-locale--is-ltr & {
       width: 400px 
     }
     @media (max-width: 1500px) {
-      .v-application--is-rtl & {
+      .v-locale--is-rtl & {
         width: 300px 
       }
-      .v-application--is-ltr & {
+      .v-locale--is-ltr & {
         width: 500px 
       }
     }

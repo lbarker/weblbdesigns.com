@@ -1,24 +1,25 @@
 <template>
-  <div class="counter-wrap">
-    <div id="watched_counter" />
+  <div
+    ref="wrapper"
+    v-scroll="runCounter"
+    class="counter-wrap"
+  >
     <v-container class="max-md">
       <v-row
         align="center"
         justify="center"
         class="root spacing6"
       >
-        <v-col md="6" class="pa-6">
+        <v-col md="4" class="pa-6">
           <div class="counter-item">
-            <div class="text" v-if="loaded">
+            <div v-if="loaded" class="text">
               <i class="ion-ios-briefcase-outline" />
               <h4 class="use-text-title2">
-                <span
-                  v-countUp:onWindowScroll.once="{
-                    watchedElId: 'watched_counter',
-                    startValue: 0,
-                    endValue: 15,
-                    options: { duration: 1 }
-                  }"
+                {{ !visible ? 0 : '' }}
+                <count-up
+                  v-if="visible"
+                  :start-val="0"
+                  :end-val="17"
                 />
               </h4>
             </div>
@@ -27,18 +28,16 @@
             </h6>
           </div>
         </v-col>
-        <v-col md="6" class="pa-6">
+        <v-col md="4" class="pa-6">
           <div class="counter-item">
-            <div class="text" v-if="loaded">
+            <div v-if="loaded" class="text">
               <i class="ion-ios-heart-outline" />
               <h4 class="use-text-title2">
-                <span
-                  v-countUp:onWindowScroll.once="{
-                    watchedElId: 'watched_counter',
-                    startValue: 0,
-                    endValue: 3,
-                    options: { duration: 1 }
-                  }"
+                {{ !visible ? 0 : '' }}
+                <count-up
+                  v-if="visible"
+                  :start-val="0"
+                  :end-val="3"
                 />
               </h4>
             </div>
@@ -57,14 +56,38 @@
 </style>
 
 <script>
+import CountUp from 'vue-countup-v3';
+import { ref } from 'vue';
+
 export default {
+  components: {
+    CountUp,
+  },
+  setup() {
+    const visible = ref(false);
+    const wrapper = ref(null);
+    const offset = 500;
+    function runCounter() {
+      const windowBound = wrapper.value.getBoundingClientRect();
+
+      if (windowBound.top < offset) {
+        visible.value = true;
+      }
+    }
+
+    return {
+      visible,
+      runCounter,
+      wrapper,
+    };
+  },
   data() {
     return {
-      loaded: false
-    }
+      loaded: false,
+    };
   },
   mounted() {
-    this.loaded = true
-  }
-}
+    this.loaded = true;
+  },
+};
 </script>

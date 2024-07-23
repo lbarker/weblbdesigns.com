@@ -5,10 +5,10 @@
       <main-header invert />
       <div class="container-wrap">
         <section class="space-top space-bottom">
-          <h2 class="display-3 text-center mb-4">
+          <h2 class="use-text-title2 text-center mb-4">
             {{ $t('common.title') }}
           </h2>
-          <h4 class="display-1 text-center">
+          <h4 class="use-text-subtitle2 text-center">
             {{ $t('common.subtitle') }}
           </h4>
         </section>
@@ -19,8 +19,6 @@
 </template>
 
 <style scoped lang="scss">
-@import '~/assets/styles';
-
 @function section-margin($margin) {
   @return $margin * 20;
 }
@@ -52,19 +50,19 @@
 </style>
 
 <script>
-import Header from '~/components/Header'
-import Notification from '~/components/Notification'
-import brand from '~/static/text/brand'
+import Header from '@/components/Header';
+import Notification from '@/components/Notification';
+import brand from '@/assets/text/brand';
 
 export default {
   components: {
     'main-header': Header,
-    Notification
+    Notification,
   },
   head() {
     return {
-      title: brand.profile.name + ' - Blank Page'
-    }
-  }
-}
+      title: brand.profile.name + ' - Blank Page',
+    };
+  },
+};
 </script>

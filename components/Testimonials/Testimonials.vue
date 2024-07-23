@@ -19,16 +19,13 @@
                   class="avatar-item"
                 >
                   <v-menu
-                    :nudge-left="130"
-                    open-on-hover
-                    origin="center center"
+                    :open-on-hover="isDesktop"
                     transition="scale-transition"
-                    top
-                    offset-y
+                    location="top center"
                     content-class="paper"
                   >
-                    <template v-slot:activator="{ on }">
-                      <v-btn v-on="on" icon>
+                    <template #activator="{ props }">
+                      <v-btn variant="text" v-bind="props" icon>
                         <avatar-buble
                           :avatar="item.avatar"
                           :name="item.name"
@@ -50,67 +47,68 @@
                 </div>
               </div>
             </hidden>
-            <hidden point="smUp" v-if="loaded">
-              <slick ref="slick" :options="slickOptions">
-                <div
+            <hidden point="smUp">
+              <splide ref="slick" :options="slickOptions">
+                <splide-slide
                   v-for="(item, index) in testiData"
                   :key="index"
-                  class="item-carousel"
                 >
-                  <v-card class="card">
-                    <p class="body-1">
-                      {{ item.text }}
-                    </p>
-                    <div class="name">
-                      <v-avatar v-if="item.avatar" class="avatar">
-                        <img :src="item.avatar" :alt="item.name">
-                      </v-avatar>
-                      <v-avatar v-else color="grey" class="avatar">
-                        <strong class="white--text headline">
-                          {{ firsthChar(item.name) }}
-                        </strong>
-                      </v-avatar>
-                      <span class="caption">
-                        {{ item.name }}
-                      </span>
-                    </div>
-                  </v-card>
-                </div>
-              </slick>
+                  <div class="item-carousel">
+                    <v-card class="card">
+                      <p class="body-1">
+                        {{ item.text }}
+                      </p>
+                      <div class="name">
+                        <v-avatar v-if="item.avatar" class="avatar">
+                          <img :src="item.avatar" :alt="item.name">
+                        </v-avatar>
+                        <v-avatar v-else color="grey" class="avatar">
+                          <strong class="white--text headline">
+                            {{ firsthChar(item.name) }}
+                          </strong>
+                        </v-avatar>
+                        <span class="caption">
+                          {{ item.name }}
+                        </span>
+                      </div>
+                    </v-card>
+                  </div>
+                </splide-slide>
+              </splide>
             </hidden>
           </div>
         </v-col>
         <v-col md="5" cols="12">
           <div class="text">
-            <u-animate-container>
-              <u-animate
-                :offset="-200"
-                name="fadeInUpShort"
-                delay="0.2s"
-                duration="0.3s"
+            <div>
+              <div
+                data-aos="fade-up"
+                data-aos-offset="100"
+                data-aos-duration="300"
+                data-aos-delay="200"
               >
                 <h3 class="use-text-title2">
                   {{ $t('profileLanding.testi_title2') }}
                 </h3>
-              </u-animate>
-              <u-animate
-                :offset="-200"
-                name="fadeInUpShort"
-                delay="0.3s"
-                duration="0.3s"
+              </div>
+              <div
+                data-aos="fade-up"
+                data-aos-offset="100"
+                data-aos-duration="300"
+                data-aos-delay="300"
               >
                 <div>
                   <p class="use-text-paragraph">
                     {{ $t('profileLanding.testi_desc') }}
                   </p>
-                  <!-- TODO: activate call to action 
+                  <!-- 
                   <v-btn color="secondary" href="#contact" large class="button">
                     {{ $t('profileLanding.testi_button') }}
                   </v-btn>
-                -->
+                  -->
                 </div>
-              </u-animate>
-            </u-animate-container>
+              </div>
+            </div>
           </div>
         </v-col>
       </v-row>
@@ -123,40 +121,57 @@
 </style>
 
 <script>
-import Hidden from '../Hidden'
-import AvatarBuble from './AvatarBuble'
-import testiData from './testimonialsData'
-import Title from '../Title'
+import AOS from 'aos';
+import { Splide, SplideSlide } from '@splidejs/vue-splide';
+import Hidden from '../Hidden';
+import AvatarBuble from './AvatarBuble';
+import testiData from './testimonialsData';
+import Title from '../Title';
 
 export default {
   components: {
     'title-main': Title,
     AvatarBuble,
     Hidden,
-    Slick: () => import('vue-slick')
+    Splide,
+    SplideSlide,
   },
   data() {
     return {
       loaded: false,
-      testiData: testiData,
+      testiData,
       popupData: {},
       slickOptions: {
-        dots: false,
-        infinite: false,
+        pagination: false,
         speed: 500,
-        autoplay: false,
-        slidesToShow: 1,
-        arrows: false
-      }
-    }
-  },
-  mounted() {
-    this.loaded = true
+        perMove: 1,
+        direction: 'ltr',
+        arrows: false,
+      },
+    };
   },
   computed: {
     firsthChar() {
-      return txt => txt.charAt(0)
-    }
-  }
-}
+      return txt => txt.charAt(0);
+    },
+    isDesktop() {
+      const lgUp = this.$vuetify.display.lgAndUp;
+      return lgUp;
+    },
+  },
+  mounted() {
+    this.loaded = true;
+    AOS.init({
+      once: true,
+    });
+
+    setTimeout(() => {
+      if (this.$vuetify.locale.isRtl) {
+        this.slickOptions.direction = 'rtl';
+      } else {
+        this.slickOptions.direction = 'ltr';
+      }
+    }, 200);
+  },
+};
 </script>

@@ -1,12 +1,12 @@
-# `profile-theme`
+# weblbdesigns.com - Barker
 
-> TODO: description
+Source code the online portfolio of Lauren Barker.
+
 
 ## Installation
 
 ```
 npm install
-yarn install
 ```
 
 ## Run Development
@@ -24,5 +24,5 @@ npm run build
 ## Run Production
 
 ```
-npm start
+npm run preview
 ```
