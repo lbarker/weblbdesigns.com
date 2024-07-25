@@ -10,7 +10,7 @@ const brand = {
     logoText: 'Making the most of now',
     projectName: 'Portfolio of Lauren Barker',
     url: 'weblbdesigns.com',
-    img: '/images/profile-logo.png',
+    img: '/images/brandmark-design.png',
     avatar: imgAPI.profile[1],
     cover: '/images/profile/barker-bigsur2.jpg',
     notifMsg:
