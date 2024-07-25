@@ -6,9 +6,11 @@
           <v-row>
             <v-col lg="2" cols="12" class="pa-0">
               <hidden point="mdDown">
+                <!-- 
                 <h2 class="name-deco">
                   {{ brand.profile.name }}
                 </h2>
+                -->
               </hidden>
             </v-col>
             <v-col lg="10" cols="12" class="pa-0">

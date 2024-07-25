@@ -38,7 +38,7 @@
 
 <script>
 import { inject } from 'vue';
-import logo from '@/assets/images/profile-logo.svg';
+import logo from '@/assets/images/brandmark-design.png';
 import { useRouter } from '#app';
 import navMenu from './menu';
 

@@ -75,7 +75,7 @@
 
 <script>
 import { ref, inject } from 'vue';
-import logo from '@/assets/images/profile-logo.svg';
+import logo from '@/assets/images/brandmark-design.png';
 import routeLink from '@/assets/text/link';
 import { useRouter } from '#app';
 import Settings from '../Settings';

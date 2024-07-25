@@ -53,7 +53,7 @@
 </style>
 
 <script>
-import logo from '@/assets/images/profile-logo.svg';
+import logo from '@/assets/images/brandmark-design.png';
 import brand from '@/assets/text/brand';
 import ContactForm from '../Contact/Form';
 
