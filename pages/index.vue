@@ -145,7 +145,7 @@ export default defineNuxtComponent({
   },
   head() {
     return {
-      title: brand.profile.name + ' -  Luxi Theme Profile',
+      title: brand.profile.name
     };
   },
 });
