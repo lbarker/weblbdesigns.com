@@ -80,15 +80,18 @@
     color: $palette-primary-dark;
     width: 36px;
     height: 36px;
+    margin-left: 20px;
+
     i {
       color: rgba(255, 255, 255, 0.75)
     }
   }
   i {
-    font-size: 24px
+    font-size: 44px;
   }
-  svg.gitlab {
-    margin-top:2px
+  .gitlab {
+    margin-top:2px;
+    width:40px;
   }
 }
 

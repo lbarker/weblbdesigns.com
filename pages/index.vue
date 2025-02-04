@@ -11,6 +11,7 @@
         <counter />
       </section>
       <div class="grey-bg">
+        <!--
         <div class="deco-wrap">
           <decoration />
           <section id="my-work" class="space-top-short space-bottom-short">
@@ -20,6 +21,8 @@
         <section id="testimonials">
           <testimonials />
         </section>
+        -->
+
         <div class="deco-wrap bottom">
           <decoration />
           <section id="blog" class="space-top-short">
