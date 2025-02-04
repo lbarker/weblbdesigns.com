@@ -15,17 +15,15 @@
     justify-content: center
   }
 }
-
+.text {
+  justify-content: center;
+}
 .counter-item {
   color: $palette-common-white;
+  text-align: center;
+
   h6 {
     white-space: nowrap
-  }
-  @include breakpoints-up(sm) {
-    @include padding-left($spacing5)
-  }
-  @include breakpoints-down(sm) {
-    text-align: center
   }
   i {
     @include margin-right($spacing2);

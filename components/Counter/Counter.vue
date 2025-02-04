@@ -28,11 +28,12 @@
             </h6>
           </div>
         </v-col>
+        <v-col md="1" class="pa-6"></v-col>
         <v-col md="4" class="pa-6">
           <div class="counter-item">
             <div v-if="loaded" class="text">
               <i class="ion-ios-heart-outline" />
-              <h4 class="use-text-title2">
+              <h4 class="use-text-title2 center">
                 {{ !visible ? 0 : '' }}
                 <count-up
                   v-if="visible"
