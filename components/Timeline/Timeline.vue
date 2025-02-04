@@ -29,9 +29,22 @@
                             data-aos-duration="300"
                           >
                             <div>
+                              <h3 class="use-text-subtitle2 pb-2">Staff Fullsack Engineer </h3>
+                              <p class="mb-2">at GitLab</p>
+                              <p class="time">Feburary 2025 - Current</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div
+                            data-aos="fade-left"
+                            data-aos-offset="100"
+                            data-aos-duration="300"
+                          >
+                            <div>
                               <h3 class="use-text-subtitle2 pb-2">Engineering Manager</h3>
                               <p class="mb-2">at GitLab</p>
-                              <p class="time">April 2022 - Present</p>
+                              <p class="time">April 2022 - January 2025</p>
                             </div>
                           </div>
                         </li>
@@ -82,7 +95,7 @@
                         </div>
                         <v-progress-linear
                           :height="10"
-                          :model-value="play ? 95 : 0"
+                          :model-value="play ? 80 : 0"
                           color="none"
                           class="progress"
                         />
@@ -103,7 +116,7 @@
                       </li>
                       <li>
                         <div class="text-icon">
-                          <i class="ion-ios-create-outline" />
+                          <i class="ion-ios-create" />
                           <h5 class="use-text-subtitle2">
                             Content Management Systems
                           </h5>
@@ -124,7 +137,7 @@
                         </div>
                         <v-progress-linear
                           :height="10"
-                          :model-value="play ? 85 : 0"
+                          :model-value="play ? 83 : 0"
                           color="none"
                           class="progress"
                         />
@@ -138,7 +151,7 @@
                         </div>
                         <v-progress-linear
                           :height="10"
-                          :model-value="play ? 80 : 0"
+                          :model-value="play ? 94 : 0"
                           color="none"
                           class="progress"
                         />
@@ -166,7 +179,7 @@
                         </div>
                         <v-progress-linear
                           :height="10"
-                          :model-value="play ? 70 : 0"
+                          :model-value="play ? 85 : 0"
                           color="none"
                           class="progress"
                         />
